@@ -30,6 +30,8 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall_score, f1_score
 from sklearn import preprocessing
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 """### Load ERP and Resting state data"""
 
@@ -302,6 +304,20 @@ print(f"Testing Precision: {test_precision:.4f}")
 print(f"Testing Recall: {test_recall:.4f}")
 print(f"Testing F1 Score: {test_f1:.4f}")
 
+"""#### SVM meged final model confusion matrix"""
+
+# Generate confusion matrices - 1 = AD; 0 = non-AD
+cm = confusion_matrix(y_test, y_test_pred)
+
+# Plot confusion matrices
+plt.figure(figsize=(12, 5))
+
+# SVM Confusion Matrix
+disp_svm = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp_svm.plot(cmap=plt.cm.Blues)
+plt.title("SVM Confusion Matrix \n (Merged Dataset)")
+plt.show()
+
 """### KNN on merged with feature selection"""
 
 # read in csv with selected features, already scaled and with participants 5 & 8 swapped for correctness
@@ -386,3 +402,17 @@ print(f"Testing Accuracy: {test_accuracy:.4f}")
 print(f"Testing Precision: {test_precision:.4f}")
 print(f"Testing Recall: {test_recall:.4f}")
 print(f"Testing F1 Score: {test_f1:.4f}")
+
+"""#### KNN merged final model confusion matrix"""
+
+# Generate confusion matrices - 1 = AD; 0 = non-AD
+cm = confusion_matrix(y_test, y_test_pred)
+
+# Plot confusion matrices
+plt.figure(figsize=(12, 5))
+
+# KNN Confusion Matrix
+disp_svm = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp_svm.plot(cmap=plt.cm.Blues)
+plt.title("KNN Confusion Matrix \n (Merged Dataset)")
+plt.show()

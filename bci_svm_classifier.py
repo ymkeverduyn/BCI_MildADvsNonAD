@@ -29,6 +29,8 @@ from sklearn.model_selection import GridSearchCV, cross_val_score, KFold, cross_
 from sklearn.svm import SVC
 from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall_score, f1_score
 from sklearn import preprocessing
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 """## Train a SVM on the ERP data
 
@@ -160,6 +162,20 @@ print(f"Testing Accuracy: {test_accuracy:.4f}")
 print(f"Testing Precision: {test_precision:.4f}")
 print(f"Testing Recall: {test_recall:.4f}")
 print(f"Testing F1 Score: {test_f1:.4f}")
+
+"""### SVM ERP final model confusion matrix"""
+
+# Generate confusion matrices - 1 = AD; 0 = non-AD
+cm = confusion_matrix(y_test, y_test_pred)
+
+# Plot confusion matrices
+plt.figure(figsize=(12, 5))
+
+# SVM Confusion Matrix
+disp_svm = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp_svm.plot(cmap=plt.cm.Blues)
+plt.title("SVM Confusion Matrix \n (Auditory Dataset)")
+plt.show()
 
 """## Train a SVM on the Resting State Data
 
@@ -444,3 +460,17 @@ print(f"Testing Accuracy: {test_accuracy:.4f}")
 print(f"Testing Precision: {test_precision:.4f}")
 print(f"Testing Recall: {test_recall:.4f}")
 print(f"Testing F1 Score: {test_f1:.4f}")
+
+"""### SVM final model resting state confusion matrix"""
+
+# Generate confusion matrices - 1 = AD; 0 = non-AD
+cm = confusion_matrix(y_test, y_test_pred)
+
+# Plot confusion matrices
+plt.figure(figsize=(12, 5))
+
+# SVM Confusion Matrix
+disp_svm = ConfusionMatrixDisplay(confusion_matrix=cm)
+disp_svm.plot(cmap=plt.cm.Blues)
+plt.title("SVM Confusion Matrix \n (Resting-State Dataset)")
+plt.show()
